@@ -28,14 +28,17 @@ export default function Header() {
 
           {/* Middle section - Navigation */}
           <div className="flex-1 mx-8 hidden md:flex items-center justify-center space-x-8">
-            <Link href="/community" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Community
-            </Link>
-            <Link href="/community/users" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/directory" className="text-gray-600 hover:text-gray-900 transition-colors">
               Directory
             </Link>
-            <Link href="/community/knowledge" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/jobs" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Jobs
+            </Link>
+            <Link href="/knowledge" className="text-gray-600 hover:text-gray-900 transition-colors">
               Knowledge
+            </Link>
+            <Link href="/fraud" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Fraud Alerts
             </Link>
           </div>
 
@@ -95,25 +98,32 @@ export default function Header() {
           <div className="md:hidden mt-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200">
             <div className="px-6 py-4 space-y-4">
               <Link
-                href="/features"
+                href="/directory"
                 className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Features
+                Directory
               </Link>
               <Link
-                href="/pricing"
+                href="/jobs"
                 className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Pricing
+                Jobs
               </Link>
               <Link
-                href="/about"
+                href="/knowledge"
                 className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                About
+                Knowledge
+              </Link>
+              <Link
+                href="/fraud"
+                className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Fraud Alerts
               </Link>
               
               {session ? (
@@ -162,3 +172,4 @@ export default function Header() {
     </header>
   )
 }
+

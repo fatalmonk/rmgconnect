@@ -41,8 +41,8 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             >
-              Connecting Bangladesh&apos;s{" "}
-              <span className="text-green-600">RMG Industry</span>
+              Community Hub for{" "}
+              <span className="text-green-600">Bangladesh RMG</span>
             </motion.h1>
 
             {/* Description */}
@@ -52,8 +52,8 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
             >
-              RMGConnect is the premier digital platform connecting factories, suppliers, 
-              buyers, and professionals in Bangladesh&apos;s Ready-Made Garments industry.
+              The comprehensive platform connecting factories, suppliers, workers, buyers, 
+              and industry professionals in Bangladesh&apos;s Ready-Made Garments sector.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -71,10 +71,10 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
-                href="/community"
+                href="/directory"
                 className="inline-flex items-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
               >
-                Explore Community
+                Explore Directory
               </Link>
             </motion.div>
 
@@ -83,34 +83,43 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+              className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto"
             >
-              <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <Users className="w-6 h-6 text-green-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Connect & Network</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <ShieldAlert className="w-6 h-6 text-red-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Report Issues</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border">
+              <Link href="/jobs" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-100 rounded-lg">
                     <BarChart3 className="w-6 h-6 text-blue-600" />
                   </div>
-                  <span className="font-medium text-gray-900">Track Analytics</span>
+                  <span className="font-medium text-gray-900">Job Board</span>
                 </div>
-              </div>
+              </Link>
+              
+              <Link href="/directory" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-lg">
+                    <Users className="w-6 h-6 text-green-600" />
+                  </div>
+                  <span className="font-medium text-gray-900">Directory</span>
+                </div>
+              </Link>
+              
+              <Link href="/knowledge" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-purple-100 rounded-lg">
+                    <BarChart3 className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <span className="font-medium text-gray-900">Knowledge</span>
+                </div>
+              </Link>
+              
+              <Link href="/fraud" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <ShieldAlert className="w-6 h-6 text-red-600" />
+                  </div>
+                  <span className="font-medium text-gray-900">Fraud Alerts</span>
+                </div>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -178,9 +187,10 @@ export default function HomePage() {
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/community" className="hover:text-white transition-colors">Community</Link></li>
-                <li><Link href="/features" className="hover:text-white transition-colors">Features</Link></li>
-                <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="/directory" className="hover:text-white transition-colors">Directory</Link></li>
+                <li><Link href="/jobs" className="hover:text-white transition-colors">Job Board</Link></li>
+                <li><Link href="/knowledge" className="hover:text-white transition-colors">Knowledge Hub</Link></li>
+                <li><Link href="/fraud" className="hover:text-white transition-colors">Fraud Alerts</Link></li>
               </ul>
             </div>
             <div>
