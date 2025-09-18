@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ShieldAlert, FileText, BarChart3, ArrowRight, Users, Globe } from "lucide-react"
+import { ShieldAlert, BarChart3, ArrowRight, Users, Globe } from "lucide-react"
 import Header from "@/components/ui/header"
 import FeaturesShowcase from "@/components/features-showcase"
 import Testimonials from "@/components/testimonials"

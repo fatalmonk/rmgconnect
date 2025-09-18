@@ -5,44 +5,44 @@ import { ShieldAlert, Users, FileText, BarChart3, CheckCircle, Eye } from "lucid
 
 const features = [
   {
-    icon: ShieldAlert,
-    title: "Secure Fraud Reporting",
-    description: "Submit detailed fraud reports with evidence uploads, ensuring your information is protected and confidential.",
-    color: "red",
+    icon: Users,
+    title: "Industry Networking",
+    description: "Connect with verified factories, suppliers, and buyers in Bangladesh's RMG industry through our secure platform.",
+    color: "green",
     delay: 0
   },
   {
-    icon: Users,
-    title: "Role-Based Access Control",
-    description: "Different access levels for factories, buyers, brands, and administrators with appropriate permissions.",
-    color: "blue",
+    icon: ShieldAlert,
+    title: "Issue Reporting",
+    description: "Report industry issues and misconduct with evidence uploads, ensuring transparency and accountability.",
+    color: "red",
     delay: 0.1
   },
   {
     icon: BarChart3,
-    title: "Analytics Dashboard",
-    description: "Track fraud patterns, generate reports, and gain insights to prevent future incidents.",
-    color: "green",
+    title: "Industry Analytics",
+    description: "Track industry trends, generate insights, and make data-driven decisions for your business.",
+    color: "blue",
     delay: 0.2
   },
   {
     icon: FileText,
-    title: "Evidence Management",
-    description: "Upload and organize supporting documents, images, and files to strengthen your fraud reports.",
+    title: "Document Management",
+    description: "Upload and organize business documents, certifications, and compliance files securely.",
     color: "purple",
     delay: 0.3
   },
   {
     icon: CheckCircle,
-    title: "Professional Review Process",
-    description: "Expert review and verification process ensures quality and accuracy of all reports.",
+    title: "Verification System",
+    description: "Verified member system ensures you're connecting with legitimate and trustworthy industry partners.",
     color: "yellow",
     delay: 0.4
   },
   {
     icon: Eye,
-    title: "Public Awareness",
-    description: "Browse published reports to stay informed about fraud patterns and protect your business.",
+    title: "Market Intelligence",
+    description: "Stay informed about industry developments, market trends, and business opportunities.",
     color: "indigo",
     delay: 0.5
   }
@@ -68,7 +68,7 @@ export default function FeaturesShowcase() {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
           >
-            Everything you need to fight fraud
+            Everything you need to connect and grow
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -76,7 +76,7 @@ export default function FeaturesShowcase() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            Our platform provides comprehensive tools to help you identify, report, and prevent fraud in the RMG industry.
+            Our platform provides comprehensive tools to help you connect, collaborate, and grow in Bangladesh&apos;s RMG industry.
           </motion.p>
         </div>
 

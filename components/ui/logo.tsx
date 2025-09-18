@@ -8,7 +8,7 @@ interface LogoProps {
 export default function Logo({ className = "", href = "/" }: LogoProps) {
   return (
     <Link href={href} className={`font-bold text-xl ${className}`}>
-      <span className="text-indigo-600">RMG</span>Fraud
+      <span className="text-green-600">RMG</span>Connect
     </Link>
   )
 }

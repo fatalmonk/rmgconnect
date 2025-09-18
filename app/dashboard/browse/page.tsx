@@ -112,7 +112,7 @@ export default function BrowsePage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl">
-            <span className="text-indigo-600">RMG</span>Fraud - Browse Reports
+            <span className="text-green-600">RMG</span>Connect - Browse Reports
           </div>
           <button
             onClick={() => router.back()}
@@ -132,10 +132,10 @@ export default function BrowsePage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Published Fraud Reports
+            Published Industry Reports
           </h1>
           <p className="text-gray-600 mb-8">
-            Browse through published fraud reports from the community
+            Browse through published industry reports from the community
           </p>
 
           {/* Search and Filters */}
@@ -168,11 +168,11 @@ export default function BrowsePage() {
                   aria-label="Filter by category"
                 >
                   <option value="">All Categories</option>
-                  <option value="PAYMENT_FRAUD">Payment Fraud</option>
-                  <option value="QUALITY_FRAUD">Quality Fraud</option>
-                  <option value="DELIVERY_FRAUD">Delivery Fraud</option>
-                  <option value="DOCUMENT_FRAUD">Document Fraud</option>
-                  <option value="CONTRACT_FRAUD">Contract Fraud</option>
+                  <option value="PAYMENT_FRAUD">Payment Issues</option>
+                  <option value="QUALITY_FRAUD">Quality Concerns</option>
+                  <option value="DELIVERY_FRAUD">Delivery Issues</option>
+                  <option value="DOCUMENT_FRAUD">Document Problems</option>
+                  <option value="CONTRACT_FRAUD">Contract Issues</option>
                   <option value="OTHER">Other</option>
                 </select>
               </div>

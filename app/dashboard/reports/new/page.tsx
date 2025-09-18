@@ -108,7 +108,7 @@ export default function NewReportPage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl">
-            <span className="text-indigo-600">RMG</span>Fraud - New Report
+            <span className="text-green-600">RMG</span>Connect - New Report
           </div>
           <button
             onClick={() => router.back()}
@@ -127,10 +127,10 @@ export default function NewReportPage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Submit Fraud Report
+            Submit Industry Report
           </h1>
           <p className="text-gray-600 mb-8">
-            Provide detailed information about the fraud incident with supporting evidence.
+            Provide detailed information about the industry issue with supporting evidence.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -153,7 +153,7 @@ export default function NewReportPage() {
                     value={formData.title}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    placeholder="Brief description of the fraud"
+                    placeholder="Brief description of the issue"
                   />
                 </div>
 
@@ -167,13 +167,13 @@ export default function NewReportPage() {
                     value={formData.category}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    aria-label="Fraud category"
+                    aria-label="Issue category"
                   >
-                    <option value="PAYMENT_FRAUD">Payment Fraud</option>
-                    <option value="QUALITY_FRAUD">Quality Fraud</option>
-                    <option value="DELIVERY_FRAUD">Delivery Fraud</option>
-                    <option value="DOCUMENT_FRAUD">Document Fraud</option>
-                    <option value="CONTRACT_FRAUD">Contract Fraud</option>
+                    <option value="PAYMENT_FRAUD">Payment Issues</option>
+                    <option value="QUALITY_FRAUD">Quality Concerns</option>
+                    <option value="DELIVERY_FRAUD">Delivery Issues</option>
+                    <option value="DOCUMENT_FRAUD">Document Problems</option>
+                    <option value="CONTRACT_FRAUD">Contract Issues</option>
                     <option value="OTHER">Other</option>
                   </select>
                 </div>
@@ -237,7 +237,7 @@ export default function NewReportPage() {
                   value={formData.description}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Provide detailed information about the fraud incident, including dates, people involved, and any other relevant details..."
+                  placeholder="Provide detailed information about the industry issue, including dates, people involved, and any other relevant details..."
                 />
               </div>
             </div>

@@ -44,7 +44,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          UserRole  @default(FACTORY)
+  role          UserRole  @default(WORKER)
   companyName   String?
   companyType   CompanyType?
   isVerified    Boolean   @default(false)
@@ -56,6 +56,15 @@ model User {
   fraudReports  FraudReport[]
   reviews       Review[]
   appeals       Appeal[]
+  
+  // Community Hub Relations
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  jobs           Job[]
+  applications   Application[]
+  posts          Post[]
+  comments       Comment[]
+  reports        Report[]
 }
 
 model VerificationToken {
@@ -138,10 +147,12 @@ model Appeal {
 
 enum UserRole {
   ADMIN
-  FACTORY
+  FACTORY_OWNER
   SUPPLIER
+  WORKER
   BUYER
   REVIEWER
+  GUEST
 }
 
 enum CompanyType {
@@ -188,4 +199,142 @@ enum AppealStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+// Community Hub Models
+
+model Organization {
+  id          String   @id @default(cuid())
+  name        String
+  type        OrganizationType
+  description String?  @db.Text
+  website     String?
+  email       String?
+  phone       String?
+  address     String?  @db.Text
+  country     String   @default("Bangladesh")
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       User[]
+  jobs        Job[]
+}
+
+model Job {
+  id           String   @id @default(cuid())
+  title        String
+  description  String   @db.Text
+  requirements String?  @db.Text
+  location     String?
+  salary       String?
+  employmentType EmploymentType @default(FULL_TIME)
+  status       JobStatus @default(ACTIVE)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  authorId       String
+  author         User         @relation(fields: [authorId], references: [id])
+  applications   Application[]
+}
+
+model Application {
+  id        String   @id @default(cuid())
+  coverLetter String? @db.Text
+  status    ApplicationStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobId  String
+  job    Job  @relation(fields: [jobId], references: [id])
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  @@unique([jobId, userId])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  excerpt   String?  @db.Text
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   User      @relation(fields: [authorId], references: [id])
+  comments Comment[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+  postId   String
+  post     Post   @relation(fields: [postId], references: [id])
+}
+
+model Report {
+  id          String      @id @default(cuid())
+  subject     String
+  details     String      @db.Text
+  category    ReportCategory
+  status      ReportStatus @default(PENDING)
+  isPublic    Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+}
+
+// Additional Enums for Community Hub
+enum OrganizationType {
+  FACTORY
+  SUPPLIER
+  BUYER
+  BRAND
+  RETAILER
+  AUDITOR
+  GOVERNMENT
+  NGO
+  OTHER
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  FREELANCE
+}
+
+enum JobStatus {
+  ACTIVE
+  CLOSED
+  DRAFT
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum ReportCategory {
+  FRAUD_ALERT
+  SAFETY_VIOLATION
+  LABOR_ISSUE
+  QUALITY_CONCERN
+  ENVIRONMENTAL
+  GENERAL
 }

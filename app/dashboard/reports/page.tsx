@@ -153,7 +153,7 @@ export default function ReportsPage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl">
-            <span className="text-indigo-600">RMG</span>Fraud - Reports
+            <span className="text-green-600">RMG</span>Connect - Reports
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -181,10 +181,10 @@ export default function ReportsPage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Fraud Reports
+            Industry Reports
           </h1>
           <p className="text-gray-600 mb-8">
-            View and manage fraud reports in the system
+            View and manage industry reports in the system
           </p>
 
           {/* Filters */}
@@ -237,11 +237,11 @@ export default function ReportsPage() {
                   aria-label="Filter by category"
                 >
                   <option value="">All Categories</option>
-                  <option value="PAYMENT_FRAUD">Payment Fraud</option>
-                  <option value="QUALITY_FRAUD">Quality Fraud</option>
-                  <option value="DELIVERY_FRAUD">Delivery Fraud</option>
-                  <option value="DOCUMENT_FRAUD">Document Fraud</option>
-                  <option value="CONTRACT_FRAUD">Contract Fraud</option>
+                  <option value="PAYMENT_FRAUD">Payment Issues</option>
+                  <option value="QUALITY_FRAUD">Quality Concerns</option>
+                  <option value="DELIVERY_FRAUD">Delivery Issues</option>
+                  <option value="DOCUMENT_FRAUD">Document Problems</option>
+                  <option value="CONTRACT_FRAUD">Contract Issues</option>
                   <option value="OTHER">Other</option>
                 </select>
               </div>
@@ -281,7 +281,7 @@ export default function ReportsPage() {
               <p className="text-gray-600 mb-4">
                 {searchTerm || statusFilter || categoryFilter
                   ? "Try adjusting your filters to see more results."
-                  : "Get started by creating your first fraud report."}
+                  : "Get started by creating your first industry report."}
               </p>
               <button
                 onClick={() => router.push("/dashboard/reports/new")}

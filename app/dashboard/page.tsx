@@ -28,21 +28,21 @@ export default function DashboardPage() {
   const dashboardItems = [
     {
       title: "My Reports",
-      description: "View and manage your fraud reports",
+      description: "View and manage your industry reports",
       icon: <FileText className="w-6 h-6" />,
       href: "/dashboard/reports",
       color: "bg-blue-500"
     },
     {
       title: "Submit Report",
-      description: "Create a new fraud report",
+      description: "Create a new industry report",
       icon: <Plus className="w-6 h-6" />,
       href: "/dashboard/reports/new",
       color: "bg-green-500"
     },
     {
       title: "Browse Reports",
-      description: "View published fraud reports",
+      description: "View published industry reports",
       icon: <ShieldAlert className="w-6 h-6" />,
       href: "/dashboard/browse",
       color: "bg-red-500"
@@ -60,7 +60,7 @@ export default function DashboardPage() {
   if (userRole === "ADMIN" || userRole === "REVIEWER") {
     dashboardItems.push({
       title: "Review Reports",
-      description: "Review pending fraud reports",
+      description: "Review pending industry reports",
       icon: <BarChart3 className="w-6 h-6" />,
       href: "/review",
       color: "bg-orange-500"
@@ -83,7 +83,7 @@ export default function DashboardPage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl">
-            <span className="text-indigo-600">RMG</span>Fraud Dashboard
+            <span className="text-green-600">RMG</span>Connect Dashboard
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600">
@@ -113,7 +113,7 @@ export default function DashboardPage() {
             Dashboard
           </h1>
           <p className="text-gray-600 mb-8">
-            Manage your fraud reports and access platform features
+            Manage your industry reports and access platform features
           </p>
 
           {/* Quick Stats */}

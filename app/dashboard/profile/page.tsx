@@ -30,7 +30,7 @@ export default function ProfilePage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-xl">
-            <span className="text-indigo-600">RMG</span>Fraud - Profile
+            <span className="text-green-600">RMG</span>Connect - Profile
           </div>
           <button
             onClick={() => router.back()}
