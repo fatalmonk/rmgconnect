@@ -1,0 +1,191 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          UserRole  @default(FACTORY)
+  companyName   String?
+  companyType   CompanyType?
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  fraudReports  FraudReport[]
+  reviews       Review[]
+  appeals       Appeal[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model FraudReport {
+  id          String        @id @default(cuid())
+  title       String
+  description String        @db.Text
+  category    FraudCategory
+  severity    SeverityLevel @default(MEDIUM)
+  status      ReportStatus  @default(PENDING)
+  evidence    Evidence[]
+  location    String?
+  amount      Float?
+  currency    String        @default("USD")
+  reportedAt  DateTime      @default(now())
+  reviewedAt  DateTime?
+  publishedAt DateTime?
+  
+  reporterId  String
+  reporter    User          @relation(fields: [reporterId], references: [id])
+  
+  subjectName String?
+  subjectType CompanyType?
+  subjectEmail String?
+  
+  reviews     Review[]
+  appeals     Appeal[]
+  
+  @@index([status])
+  @@index([category])
+  @@index([reportedAt])
+}
+
+model Evidence {
+  id            String      @id @default(cuid())
+  fileName      String
+  fileUrl       String
+  fileType      String
+  fileSize      Int
+  uploadedAt    DateTime    @default(now())
+  
+  fraudReportId String
+  fraudReport   FraudReport @relation(fields: [fraudReportId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id            String      @id @default(cuid())
+  status        ReviewStatus @default(PENDING)
+  comments      String?     @db.Text
+  reviewedAt    DateTime    @default(now())
+  
+  fraudReportId String
+  fraudReport   FraudReport @relation(fields: [fraudReportId], references: [id])
+  
+  reviewerId    String
+  reviewer      User        @relation(fields: [reviewerId], references: [id])
+}
+
+model Appeal {
+  id            String      @id @default(cuid())
+  reason        String      @db.Text
+  status        AppealStatus @default(PENDING)
+  submittedAt   DateTime    @default(now())
+  reviewedAt    DateTime?
+  comments      String?     @db.Text
+  
+  fraudReportId String
+  fraudReport   FraudReport @relation(fields: [fraudReportId], references: [id])
+  
+  appellantId   String
+  appellant     User        @relation(fields: [appellantId], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  FACTORY
+  SUPPLIER
+  BUYER
+  REVIEWER
+}
+
+enum CompanyType {
+  FACTORY
+  SUPPLIER
+  BUYER
+  BRAND
+  RETAILER
+}
+
+enum FraudCategory {
+  PAYMENT_FRAUD
+  QUALITY_FRAUD
+  DELIVERY_FRAUD
+  DOCUMENT_FRAUD
+  CONTRACT_FRAUD
+  OTHER
+}
+
+enum SeverityLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ReportStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  PUBLISHED
+  APPEALED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  NEEDS_MORE_INFO
+}
+
+enum AppealStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
