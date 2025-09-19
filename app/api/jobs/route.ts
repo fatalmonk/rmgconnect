@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     const where = {
-      status: "ACTIVE",
+      status: "ACTIVE" as any,
       ...(search && {
         OR: [
           { title: { contains: search, mode: "insensitive" as const } },
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
         requirements,
         location,
         salary,
-        employmentType: employmentType.toUpperCase(),
+        employmentType: employmentType.toUpperCase() as any,
         organizationId,
         authorId
       },

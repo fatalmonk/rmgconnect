@@ -14,9 +14,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Background with subtle pattern */}
       <div className="absolute inset-0 bg-gradient-to-r from-slate-50 to-blue-50 opacity-30"></div>
-      <div className="absolute inset-0" style={{
-        backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(59, 130, 246, 0.05) 2px, rgba(59, 130, 246, 0.05) 4px)`
-      }}></div>
+      <div className="absolute inset-0 header-background"></div>
       
       <div className="relative max-w-7xl mx-auto px-6 py-4">
         {/* Main header bar */}

@@ -165,6 +165,7 @@ export default function FraudPage() {
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
                   className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  aria-label="Filter by report category"
                 >
                   <option value="">All Categories</option>
                   {reportCategories.map((category) => (
@@ -178,6 +179,7 @@ export default function FraudPage() {
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                   className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  aria-label="Filter by report status"
                 >
                   <option value="">All Statuses</option>
                   {reportStatuses.map((status) => (
