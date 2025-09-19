@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import CircularLogo from "./circular-logo"
-import { Menu, X, User, LogOut } from "lucide-react"
+import { Menu, X, User, LogOut, Building2, Briefcase, BookOpen, ShieldAlert, Home } from "lucide-react"
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -25,18 +25,26 @@ export default function Header() {
           </div>
 
           {/* Middle section - Navigation */}
-          <div className="flex-1 mx-8 hidden md:flex items-center justify-center space-x-8">
-            <Link href="/directory" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Directory
+          <div className="flex-1 mx-8 hidden md:flex items-center justify-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <Home className="w-4 h-4" />
+              <span>Home</span>
             </Link>
-            <Link href="/jobs" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Jobs
+            <Link href="/directory" className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <Building2 className="w-4 h-4" />
+              <span>Directory</span>
             </Link>
-            <Link href="/knowledge" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Knowledge
+            <Link href="/jobs" className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <Briefcase className="w-4 h-4" />
+              <span>Jobs</span>
             </Link>
-            <Link href="/fraud" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Fraud Alerts
+            <Link href="/knowledge" className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <BookOpen className="w-4 h-4" />
+              <span>Knowledge</span>
+            </Link>
+            <Link href="/fraud" className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <ShieldAlert className="w-4 h-4" />
+              <span>Fraud Alerts</span>
             </Link>
           </div>
 
@@ -94,34 +102,46 @@ export default function Header() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200">
-            <div className="px-6 py-4 space-y-4">
+            <div className="px-6 py-4 space-y-2">
               <Link
-                href="/directory"
-                className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                href="/"
+                className="flex items-center space-x-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors py-3 px-3 rounded-xl"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Directory
+                <Home className="w-5 h-5" />
+                <span>Home</span>
+              </Link>
+              <Link
+                href="/directory"
+                className="flex items-center space-x-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors py-3 px-3 rounded-xl"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Building2 className="w-5 h-5" />
+                <span>Directory</span>
               </Link>
               <Link
                 href="/jobs"
-                className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                className="flex items-center space-x-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors py-3 px-3 rounded-xl"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Jobs
+                <Briefcase className="w-5 h-5" />
+                <span>Jobs</span>
               </Link>
               <Link
                 href="/knowledge"
-                className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                className="flex items-center space-x-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors py-3 px-3 rounded-xl"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Knowledge
+                <BookOpen className="w-5 h-5" />
+                <span>Knowledge</span>
               </Link>
               <Link
                 href="/fraud"
-                className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                className="flex items-center space-x-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors py-3 px-3 rounded-xl"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Fraud Alerts
+                <ShieldAlert className="w-5 h-5" />
+                <span>Fraud Alerts</span>
               </Link>
               
               {session ? (

@@ -2,190 +2,165 @@
 
 import { motion } from "framer-motion"
 import { 
-  FileText, 
-  CheckCircle, 
+  Building2, 
+  Briefcase, 
   Users, 
   ShieldAlert, 
-  TrendingUp,
+  TrendingUp, 
+  Calendar,
   MessageCircle,
-  Heart,
-  Share2,
-  Clock
+  Star,
+  ArrowRight
 } from "lucide-react"
+import Link from "next/link"
 
 interface ActivityItem {
   id: string
-  user: {
-    name: string
-    company: string
-    role: string
-    avatar?: string
-    verified: boolean
-  }
-  action: string
-  type: "report" | "verification" | "profile" | "resolution" | "discussion" | "achievement"
-  target?: string
-  content?: string
+  type: 'job' | 'organization' | 'report' | 'discussion' | 'achievement'
+  title: string
+  description: string
   timestamp: string
-  likes: number
-  comments: number
-  shares: number
-  isLiked: boolean
+  user: string
+  organization?: string
+  icon: any
+  color: string
+  bgColor: string
 }
 
-interface ActivityFeedProps {
-  activities: ActivityItem[]
-  onLike?: (activityId: string) => void
-  onComment?: (activityId: string) => void
-  onShare?: (activityId: string) => void
-}
-
-export default function ActivityFeed({ activities, onLike, onComment, onShare }: ActivityFeedProps) {
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case "report": return <FileText className="w-5 h-5" />
-      case "verification": return <CheckCircle className="w-5 h-5" />
-      case "profile": return <Users className="w-5 h-5" />
-      case "resolution": return <ShieldAlert className="w-5 h-5" />
-      case "discussion": return <MessageCircle className="w-5 h-5" />
-      case "achievement": return <TrendingUp className="w-5 h-5" />
-      default: return <FileText className="w-5 h-5" />
-    }
+const activities: ActivityItem[] = [
+  {
+    id: '1',
+    type: 'job',
+    title: 'New Job Posted',
+    description: 'Senior Production Manager position at Green Textiles Ltd.',
+    timestamp: '2 hours ago',
+    user: 'HR Team',
+    organization: 'Green Textiles Ltd.',
+    icon: Briefcase,
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-100'
+  },
+  {
+    id: '2',
+    type: 'organization',
+    title: 'Organization Verified',
+    description: 'Prime Garments Ltd. has been verified and added to directory.',
+    timestamp: '4 hours ago',
+    user: 'Admin Team',
+    organization: 'Prime Garments Ltd.',
+    icon: Building2,
+    color: 'text-green-600',
+    bgColor: 'bg-green-100'
+  },
+  {
+    id: '3',
+    type: 'report',
+    title: 'Safety Report Published',
+    description: 'New safety guidelines for factory workers published.',
+    timestamp: '6 hours ago',
+    user: 'Safety Officer',
+    icon: ShieldAlert,
+    color: 'text-red-600',
+    bgColor: 'bg-red-100'
+  },
+  {
+    id: '4',
+    type: 'discussion',
+    title: 'Industry Discussion',
+    description: 'New discussion: "Sustainable Manufacturing Practices"',
+    timestamp: '8 hours ago',
+    user: 'Industry Expert',
+    icon: MessageCircle,
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-100'
+  },
+  {
+    id: '5',
+    type: 'achievement',
+    title: 'Milestone Reached',
+    description: 'Community reached 2,800+ active members!',
+    timestamp: '1 day ago',
+    user: 'System',
+    icon: Star,
+    color: 'text-yellow-600',
+    bgColor: 'bg-yellow-100'
   }
+]
 
-  const getActivityColor = (type: string) => {
-    switch (type) {
-      case "report": return "bg-blue-100 text-blue-600"
-      case "verification": return "bg-green-100 text-green-600"
-      case "profile": return "bg-purple-100 text-purple-600"
-      case "resolution": return "bg-red-100 text-red-600"
-      case "discussion": return "bg-yellow-100 text-yellow-600"
-      case "achievement": return "bg-indigo-100 text-indigo-600"
-      default: return "bg-gray-100 text-gray-600"
-    }
-  }
-
-  const formatTimestamp = (timestamp: string) => {
-    const now = new Date()
-    const activityTime = new Date(timestamp)
-    const diffInMinutes = Math.floor((now.getTime() - activityTime.getTime()) / (1000 * 60))
-    
-    if (diffInMinutes < 1) return "Just now"
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`
-    return `${Math.floor(diffInMinutes / 1440)}d ago`
-  }
-
+export default function ActivityFeed() {
   return (
-    <div className="space-y-4">
-      {activities.map((activity, index) => (
-        <motion.div
-          key={activity.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: index * 0.1 }}
-          className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border p-6 hover:shadow-xl transition-all"
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-lg">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Community Activity</h2>
+          <p className="text-gray-600">Latest updates from the RMG community</p>
+        </div>
+        <Link 
+          href="/community"
+          className="inline-flex items-center px-4 py-2 text-green-600 hover:text-green-700 font-medium transition-colors"
         >
-          {/* Activity Header */}
-          <div className="flex items-start space-x-4 mb-4">
-            <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold flex-shrink-0">
-              {activity.user.avatar ? (
-                <img src={activity.user.avatar} alt={activity.user.name} className="w-12 h-12 rounded-full" />
-              ) : (
-                activity.user.name.split(' ').map(n => n[0]).join('')
-              )}
-            </div>
-            
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center space-x-2 mb-1">
-                <h3 className="font-semibold text-gray-900">{activity.user.name}</h3>
-                {activity.user.verified && (
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                )}
-                <span className="text-sm text-gray-500">•</span>
-                <span className="text-sm text-gray-500">{activity.user.company}</span>
-                <span className="text-sm text-gray-500">•</span>
-                <span className="text-sm text-gray-500">{activity.user.role}</span>
+          View All
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Link>
+      </div>
+
+      <div className="space-y-6">
+        {activities.map((activity, index) => {
+          const Icon = activity.icon
+          return (
+            <motion.div
+              key={activity.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group cursor-pointer"
+            >
+              <div className={`p-3 rounded-xl ${activity.bgColor} group-hover:scale-110 transition-transform`}>
+                <Icon className={`w-6 h-6 ${activity.color}`} />
               </div>
               
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <Clock className="w-4 h-4" />
-                <span>{formatTimestamp(activity.timestamp)}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center space-x-2 mb-1">
+                  <h3 className="font-semibold text-gray-900 text-sm">{activity.title}</h3>
+                  <span className="text-xs text-gray-500">•</span>
+                  <span className="text-xs text-gray-500">{activity.timestamp}</span>
+                </div>
+                
+                <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
+                
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs text-gray-500">by</span>
+                  <span className="text-xs font-medium text-gray-700">{activity.user}</span>
+                  {activity.organization && (
+                    <>
+                      <span className="text-xs text-gray-500">•</span>
+                      <span className="text-xs text-gray-500">{activity.organization}</span>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
+            </motion.div>
+          )
+        })}
+      </div>
 
-            <div className={`p-2 rounded-lg ${getActivityColor(activity.type)}`}>
-              {getActivityIcon(activity.type)}
-            </div>
+      {/* Quick Stats */}
+      <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="grid grid-cols-3 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">24</div>
+            <div className="text-xs text-gray-500">New Jobs Today</div>
           </div>
-
-          {/* Activity Content */}
-          <div className="mb-4">
-            <p className="text-gray-900">
-              <span className="font-medium">{activity.user.name}</span>{" "}
-              {activity.action}
-              {activity.target && (
-                <span className="font-medium text-indigo-600"> {activity.target}</span>
-              )}
-            </p>
-            
-            {activity.content && (
-              <div className="mt-3 p-4 bg-gray-50 rounded-xl">
-                <p className="text-gray-700">{activity.content}</p>
-              </div>
-            )}
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">8</div>
+            <div className="text-xs text-gray-500">New Members</div>
           </div>
-
-          {/* Activity Actions */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <div className="flex items-center space-x-6">
-              <button
-                onClick={() => onLike?.(activity.id)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
-                  activity.isLiked 
-                    ? "bg-red-100 text-red-600" 
-                    : "hover:bg-gray-100 text-gray-600"
-                }`}
-              >
-                <Heart className={`w-4 h-4 ${activity.isLiked ? "fill-current" : ""}`} />
-                <span className="text-sm font-medium">{activity.likes}</span>
-              </button>
-
-              <button
-                onClick={() => onComment?.(activity.id)}
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">{activity.comments}</span>
-              </button>
-
-              <button
-                onClick={() => onShare?.(activity.id)}
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
-              >
-                <Share2 className="w-4 h-4" />
-                <span className="text-sm font-medium">{activity.shares}</span>
-              </button>
-            </div>
-
-            <div className="text-sm text-gray-500">
-              {activity.type.replace("-", " ").toUpperCase()}
-            </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600">12</div>
+            <div className="text-xs text-gray-500">Discussions</div>
           </div>
-        </motion.div>
-      ))}
-
-      {/* Load More Button */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: activities.length * 0.1 }}
-        className="text-center pt-6"
-      >
-        <button className="px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors font-medium">
-          Load More Activity
-        </button>
-      </motion.div>
+        </div>
+      </div>
     </div>
   )
 }

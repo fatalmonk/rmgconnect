@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ShieldAlert, BarChart3, ArrowRight, Users, Globe } from "lucide-react"
+import { ShieldAlert, BarChart3, ArrowRight, Users, Globe, Building2, Briefcase, TrendingUp, Award, Calendar, BookOpen } from "lucide-react"
 import Header from "@/components/ui/header"
 import FeaturesShowcase from "@/components/features-showcase"
 import Testimonials from "@/components/testimonials"
 import FAQ from "@/components/faq"
+import ActivityFeed from "@/components/activity-feed"
+import MemberSpotlight from "@/components/member-spotlight"
 
 export default function HomePage() {
   return (
@@ -26,10 +28,11 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800 mb-8"
+              className="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium bg-white/80 backdrop-blur-sm border border-green-200 mb-8 shadow-lg"
             >
-              <Globe className="w-4 h-4 mr-2" />
-              Connecting Bangladesh&apos;s RMG Industry
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3"></div>
+              <Globe className="w-4 h-4 mr-2 text-green-600" />
+              Live Platform - 2,847 Active Members
             </motion.div>
 
             {/* Headline */}
@@ -37,10 +40,12 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
+              className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight"
             >
-              Community Hub for{" "}
-              <span className="text-green-600">Bangladesh RMG</span>
+              Bangladesh&apos;s Premier{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-blue-600 to-purple-600">
+                RMG Community Hub
+              </span>
             </motion.h1>
 
             {/* Description */}
@@ -48,10 +53,10 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed"
             >
-              The comprehensive platform connecting factories, suppliers, workers, buyers, 
-              and industry professionals in Bangladesh&apos;s Ready-Made Garments sector.
+              Connecting factories, workers, buyers, and suppliers in Bangladesh&apos;s Ready-Made Garments industry. 
+              Building transparency, safety, and sustainable growth through technology and community collaboration.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -59,64 +64,108 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
             >
               <Link
-                href="/auth/signup"
-                className="inline-flex items-center px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
+                href="/directory"
+                className="group inline-flex items-center px-10 py-5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-2xl hover:from-green-700 hover:to-green-800 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
               >
-                Join RMGConnect
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <Building2 className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
+                Explore Organizations
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/directory"
-                className="inline-flex items-center px-8 py-4 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+                href="/jobs"
+                className="group inline-flex items-center px-10 py-5 bg-white/90 backdrop-blur-sm text-gray-900 font-semibold rounded-2xl border-2 border-gray-200 hover:border-green-600 hover:bg-green-50 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
               >
-                Explore Directory
+                <Briefcase className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
+                Find Jobs
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
+            </motion.div>
+
+            {/* Community Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16"
+            >
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 hover:border-green-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-3 bg-green-100 rounded-xl">
+                    <Building2 className="w-8 h-8 text-green-600" />
+                  </div>
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2 text-center">500+</div>
+                <div className="text-sm text-gray-600 font-medium text-center">Verified Organizations</div>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-3 bg-blue-100 rounded-xl">
+                    <Briefcase className="w-8 h-8 text-blue-600" />
+                  </div>
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2 text-center">1,200+</div>
+                <div className="text-sm text-gray-600 font-medium text-center">Active Job Listings</div>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-3 bg-purple-100 rounded-xl">
+                    <Users className="w-8 h-8 text-purple-600" />
+                  </div>
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-purple-600 mb-2 text-center">2,847</div>
+                <div className="text-sm text-gray-600 font-medium text-center">Community Members</div>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 hover:border-orange-300 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-3 bg-orange-100 rounded-xl">
+                    <Award className="w-8 h-8 text-orange-600" />
+                  </div>
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2 text-center">95%</div>
+                <div className="text-sm text-gray-600 font-medium text-center">Safety Compliance</div>
+              </div>
             </motion.div>
 
             {/* Features Grid */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
               className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto"
             >
-              <Link href="/jobs" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <BarChart3 className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Job Board</span>
+              <Link href="/jobs" className="group flex flex-col items-center justify-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="p-4 bg-blue-100 rounded-2xl mb-4 group-hover:bg-blue-200 transition-colors">
+                  <Briefcase className="w-8 h-8 text-blue-600" />
                 </div>
+                <span className="font-semibold text-gray-900 text-lg">Job Board</span>
+                <span className="text-sm text-gray-600 mt-1">1,200+ Opportunities</span>
               </Link>
               
-              <Link href="/directory" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <Users className="w-6 h-6 text-green-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Directory</span>
+              <Link href="/directory" className="group flex flex-col items-center justify-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="p-4 bg-green-100 rounded-2xl mb-4 group-hover:bg-green-200 transition-colors">
+                  <Building2 className="w-8 h-8 text-green-600" />
                 </div>
+                <span className="font-semibold text-gray-900 text-lg">Directory</span>
+                <span className="text-sm text-gray-600 mt-1">500+ Organizations</span>
               </Link>
               
-              <Link href="/knowledge" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <BarChart3 className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Knowledge</span>
+              <Link href="/knowledge" className="group flex flex-col items-center justify-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="p-4 bg-purple-100 rounded-2xl mb-4 group-hover:bg-purple-200 transition-colors">
+                  <BookOpen className="w-8 h-8 text-purple-600" />
                 </div>
+                <span className="font-semibold text-gray-900 text-lg">Knowledge Hub</span>
+                <span className="text-sm text-gray-600 mt-1">Industry Resources</span>
               </Link>
               
-              <Link href="/fraud" className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <ShieldAlert className="w-6 h-6 text-red-600" />
-                  </div>
-                  <span className="font-medium text-gray-900">Fraud Alerts</span>
+              <Link href="/fraud" className="group flex flex-col items-center justify-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 hover:border-red-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="p-4 bg-red-100 rounded-2xl mb-4 group-hover:bg-red-200 transition-colors">
+                  <ShieldAlert className="w-8 h-8 text-red-600" />
                 </div>
+                <span className="font-semibold text-gray-900 text-lg">Fraud Alerts</span>
+                <span className="text-sm text-gray-600 mt-1">Safety First</span>
               </Link>
             </motion.div>
           </div>
@@ -125,6 +174,16 @@ export default function HomePage() {
         {/* Background Elements */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-green-100 rounded-full opacity-20 blur-3xl"></div>
+        </div>
+      </section>
+
+      {/* Community Dashboard Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <ActivityFeed />
+            <MemberSpotlight />
+          </div>
         </div>
       </section>
 
