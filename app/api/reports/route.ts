@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { ReportCategory, ReportStatus } from "@prisma/client"
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,8 +13,8 @@ export async function GET(request: NextRequest) {
 
     const where = {
       isPublic: true,
-      ...(category && { category: category.toUpperCase() as any }),
-      ...(status && { status: status.toUpperCase() as any })
+      ...(category && { category: category.toUpperCase() as ReportCategory }),
+      ...(status && { status: status.toUpperCase() as ReportStatus })
     }
 
     const [reports, total] = await Promise.all([

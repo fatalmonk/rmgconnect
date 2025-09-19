@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Search, BookOpen, MessageCircle, User, Building2, Calendar } from "lucide-react"
 import Link from "next/link"
@@ -41,7 +41,7 @@ export default function KnowledgePage() {
   const [search, setSearch] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams({
@@ -61,11 +61,11 @@ export default function KnowledgePage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [currentPage, search])
 
   useEffect(() => {
     fetchPosts()
-  }, [currentPage, search])
+  }, [fetchPosts])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

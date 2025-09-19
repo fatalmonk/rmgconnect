@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Search, Building2, Users, Briefcase, MapPin, Globe, Filter } from "lucide-react"
 import Link from "next/link"
@@ -54,7 +54,7 @@ export default function DirectoryPage() {
     "NGO"
   ]
 
-  const fetchOrganizations = async () => {
+  const fetchOrganizations = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams({
@@ -75,11 +75,11 @@ export default function DirectoryPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [currentPage, search, typeFilter])
 
   useEffect(() => {
     fetchOrganizations()
-  }, [currentPage, search, typeFilter])
+  }, [fetchOrganizations])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

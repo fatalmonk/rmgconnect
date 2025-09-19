@@ -3,13 +3,11 @@
 import { motion } from "framer-motion"
 import { 
   Building2, 
-  Users, 
   Award, 
   CheckCircle, 
   Star,
   MapPin,
-  Calendar,
-  TrendingUp
+  Calendar
 } from "lucide-react"
 import Link from "next/link"
 

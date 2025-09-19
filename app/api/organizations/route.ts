@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { OrganizationType } from "@prisma/client"
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     const where = {
-      ...(type && { type: type.toUpperCase() as any }),
+      ...(type && { type: type.toUpperCase() as OrganizationType }),
       ...(search && {
         OR: [
           { name: { contains: search, mode: "insensitive" as const } },

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   // No middleware logic - just pass through
   return NextResponse.next()
 }

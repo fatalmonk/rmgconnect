@@ -3,16 +3,12 @@
 import { motion } from "framer-motion"
 import { 
   MessageCircle, 
-  Users, 
   TrendingUp, 
   Clock, 
   ThumbsUp, 
-  Reply,
   Star,
-  Filter,
   Search,
   Plus,
-  ArrowRight,
   ChevronRight
 } from "lucide-react"
 import Link from "next/link"

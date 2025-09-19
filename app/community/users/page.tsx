@@ -43,8 +43,9 @@ export default function UsersPage() {
   const [verifiedFilter, setVerifiedFilter] = useState("")
   const [loading, setLoading] = useState(true)
 
-  // Mock data - in real app, this would come from API
-  const mockUsers: User[] = [
+  useEffect(() => {
+    // Mock data - in real app, this would come from API
+    const mockUsers: User[] = [
     {
       id: "1",
       name: "Sarah Johnson",
@@ -119,7 +120,15 @@ export default function UsersPage() {
       joinDate: "2024-01-10",
       website: "https://indiantextiles.com"
     }
-  ]
+    ]
+
+    // Simulate API call
+    setTimeout(() => {
+      setUsers(mockUsers)
+      setFilteredUsers(mockUsers)
+      setLoading(false)
+    }, 1000)
+  }, [])
 
   useEffect(() => {
     // Simulate API call
@@ -324,11 +333,7 @@ export default function UsersPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold">
-                      {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="w-12 h-12 rounded-full" />
-                      ) : (
-                        user.name.split(' ').map(n => n[0]).join('')
-                      )}
+                      {user.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">

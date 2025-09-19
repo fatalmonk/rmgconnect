@@ -9,10 +9,8 @@ import {
   ExternalLink,
   ChevronRight,
   Plus,
-  Filter,
   Search,
   Star,
-  Award,
   BookOpen,
   Briefcase
 } from "lucide-react"
@@ -164,11 +162,6 @@ export default function EventCalendar() {
     })
   }
 
-  const isUpcoming = (dateString: string) => {
-    const eventDate = new Date(dateString)
-    const today = new Date()
-    return eventDate >= today
-  }
 
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-lg">

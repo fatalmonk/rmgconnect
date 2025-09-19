@@ -40,48 +40,48 @@ export default function CommunityPage() {
     verifiedCompanies: 156
   }
 
-  const recentActivity = [
-    {
-      id: 1,
-      user: "Sarah Johnson",
-      company: "Global Textiles Ltd",
-      action: "submitted a fraud report",
-      type: "report",
-      time: "2 minutes ago",
-      icon: FileText,
-      color: "text-blue-600"
-    },
-    {
-      id: 2,
-      user: "Ahmed Hassan",
-      company: "Fashion Forward Inc",
-      action: "verified a company",
-      type: "verification",
-      time: "15 minutes ago",
-      icon: CheckCircle,
-      color: "text-green-600"
-    },
-    {
-      id: 3,
-      user: "Maria Rodriguez",
-      company: "Sustainable Garments Co",
-      action: "updated their profile",
-      type: "profile",
-      time: "1 hour ago",
-      icon: Users,
-      color: "text-purple-600"
-    },
-    {
-      id: 4,
-      user: "John Smith",
-      company: "Quality Control Corp",
-      action: "resolved a fraud case",
-      type: "resolution",
-      time: "2 hours ago",
-      icon: ShieldAlert,
-      color: "text-red-600"
-    }
-  ]
+  // const recentActivity = [
+  //   {
+  //     id: 1,
+  //     user: "Sarah Johnson",
+  //     company: "Global Textiles Ltd",
+  //     action: "submitted a fraud report",
+  //     type: "report",
+  //     time: "2 minutes ago",
+  //     icon: FileText,
+  //     color: "text-blue-600"
+  //   },
+  //   {
+  //     id: 2,
+  //     user: "Ahmed Hassan",
+  //     company: "Fashion Forward Inc",
+  //     action: "verified a company",
+  //     type: "verification",
+  //     time: "15 minutes ago",
+  //     icon: CheckCircle,
+  //     color: "text-green-600"
+  //   },
+  //   {
+  //     id: 3,
+  //     user: "Maria Rodriguez",
+  //     company: "Sustainable Garments Co",
+  //     action: "updated their profile",
+  //     type: "profile",
+  //     time: "1 hour ago",
+  //     icon: Users,
+  //     color: "text-purple-600"
+  //   },
+  //   {
+  //     id: 4,
+  //     user: "John Smith",
+  //     company: "Quality Control Corp",
+  //     action: "resolved a fraud case",
+  //     type: "resolution",
+  //     time: "2 hours ago",
+  //     icon: ShieldAlert,
+  //     color: "text-red-600"
+  //   }
+  // ]
 
   const topContributors = [
     { name: "Sarah Johnson", company: "Global Textiles Ltd", reports: 23, verified: true },
@@ -191,27 +191,7 @@ export default function CommunityPage() {
                   </button>
                 </div>
                 
-                <ActivityFeed 
-                  activities={recentActivity.map(activity => ({
-                    id: activity.id.toString(),
-                    user: {
-                      name: activity.user,
-                      company: activity.company,
-                      role: "Factory Manager", // This would come from actual data
-                      verified: true
-                    },
-                    action: activity.action,
-                    type: activity.type as "report" | "verification" | "profile" | "resolution" | "discussion" | "achievement",
-                    timestamp: new Date(Date.now() - Math.random() * 86400000).toISOString(),
-                    likes: Math.floor(Math.random() * 50),
-                    comments: Math.floor(Math.random() * 20),
-                    shares: Math.floor(Math.random() * 10),
-                    isLiked: false
-                  }))}
-                  onLike={(id) => console.log("Like activity:", id)}
-                  onComment={(id) => console.log("Comment on activity:", id)}
-                  onShare={(id) => console.log("Share activity:", id)}
-                />
+                <ActivityFeed />
               </div>
             </motion.div>
 

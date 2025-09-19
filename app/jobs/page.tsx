@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Search, Briefcase, MapPin, Building2, Clock, Filter } from "lucide-react"
 import Link from "next/link"
@@ -55,7 +55,7 @@ export default function JobsPage() {
     "FREELANCE"
   ]
 
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams({
@@ -77,11 +77,11 @@ export default function JobsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [currentPage, search, location, employmentType])
 
   useEffect(() => {
     fetchJobs()
-  }, [currentPage, search, location, employmentType])
+  }, [fetchJobs])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

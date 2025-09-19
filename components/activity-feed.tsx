@@ -4,13 +4,11 @@ import { motion } from "framer-motion"
 import { 
   Building2, 
   Briefcase, 
-  Users, 
   ShieldAlert, 
-  TrendingUp, 
-  Calendar,
   MessageCircle,
   Star,
-  ArrowRight
+  ArrowRight,
+  LucideIcon
 } from "lucide-react"
 import Link from "next/link"
 
@@ -22,7 +20,7 @@ interface ActivityItem {
   timestamp: string
   user: string
   organization?: string
-  icon: any
+  icon: LucideIcon
   color: string
   bgColor: string
 }

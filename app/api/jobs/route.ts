@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { JobStatus, EmploymentType } from "@prisma/client"
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
 
     const where = {
-      status: "ACTIVE" as any,
+      status: JobStatus.ACTIVE,
       ...(search && {
         OR: [
           { title: { contains: search, mode: "insensitive" as const } },
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
         ]
       }),
       ...(location && { location: { contains: location, mode: "insensitive" as const } }),
-      ...(employmentType && { employmentType: employmentType.toUpperCase() as any }),
+      ...(employmentType && { employmentType: employmentType.toUpperCase() as EmploymentType }),
       ...(organization && { organizationId: organization })
     }
 
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
         requirements,
         location,
         salary,
-        employmentType: employmentType.toUpperCase() as any,
+        employmentType: employmentType.toUpperCase() as EmploymentType,
         organizationId,
         authorId
       },

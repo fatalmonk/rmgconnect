@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Search, ShieldAlert, AlertTriangle, User, Building2, Calendar, Filter } from "lucide-react"
 import Link from "next/link"
@@ -57,7 +57,7 @@ export default function FraudPage() {
     "PUBLISHED"
   ]
 
-  const fetchReports = async () => {
+  const fetchReports = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams({
@@ -79,11 +79,11 @@ export default function FraudPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [currentPage, search, categoryFilter, statusFilter])
 
   useEffect(() => {
     fetchReports()
-  }, [currentPage, search, categoryFilter, statusFilter])
+  }, [fetchReports])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
