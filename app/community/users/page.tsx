@@ -131,15 +131,6 @@ export default function UsersPage() {
   }, [])
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setUsers(mockUsers)
-      setFilteredUsers(mockUsers)
-      setLoading(false)
-    }, 1000)
-  }, [])
-
-  useEffect(() => {
     let filtered = users
 
     if (searchTerm) {
