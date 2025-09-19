@@ -2,7 +2,7 @@
 
 ## 📋 Prerequisites
 
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **PostgreSQL** database
 - **npm**, **yarn**, **pnpm**, or **bun**
 - **Git** for version control
@@ -18,31 +18,16 @@ cd rmgconnect
 
 # Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
 ### 2. Environment Configuration
 
-Create a `.env.local` file in the root directory:
-
 ```bash
-# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/rmgconnect?schema=public"
+# Copy environment template
+cp .env.example .env.local
 
-# NextAuth.js Configuration
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key-here-generate-a-random-string"
-
-# OAuth Providers (Optional)
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-# File Upload (Optional)
-UPLOAD_DIR="./uploads"
-MAX_FILE_SIZE="10485760" # 10MB
+# Edit with your configuration
+nano .env.local
 ```
 
 ### 3. Database Setup
@@ -51,315 +36,340 @@ MAX_FILE_SIZE="10485760" # 10MB
 # Generate Prisma client
 npx prisma generate
 
-# Push schema to database (for development)
+# Push schema to database
 npx prisma db push
 
-# Seed the database with sample data
+# (Optional) Seed with sample data
 npx prisma db seed
 ```
 
 ### 4. Start Development Server
 
 ```bash
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## 🏗️ Platform Features
 
-## 🌟 Platform Features
+### Organization Directory
 
-### 🏢 **Organization Directory**
-- Browse and search RMG organizations
-- Filter by organization type and location
-- View detailed organization profiles
-- Contact information and verification status
+- Comprehensive database of RMG organizations
+- Advanced search and filtering capabilities
+- Organization profiles with verification status
+- Contact information and business details
 
-### 💼 **Job Board**
+### Job Board
+
 - Job postings from verified organizations
-- Advanced search and filtering
 - Application tracking system
-- Employment type categorization
+- Employment type filtering (Full-time, Part-time, Contract)
+- Location-based job search
 
-### 📚 **Knowledge Hub**
-- Industry best practices and guidelines
-- Educational content and resources
-- Community discussions and Q&A
-- Expert insights and case studies
+### Knowledge Hub
 
-### 🚨 **Fraud Alert System**
-- Anonymous reporting mechanism
-- Fraud prevention and awareness
-- Safety violation reporting
-- Labor issue documentation
-- Quality concern tracking
+- Industry insights and best practices
+- Community discussions and forums
+- Resource sharing and collaboration
+- Expert knowledge base
 
-### 👤 **User Management**
-- Role-based access control
-- User verification system
-- Organization affiliation
-- Profile management
+### Fraud Alert System
+
+- Report suspicious activities and organizations
+- Community-driven verification system
+- Safety compliance tracking
+- Industry watchdog functionality
+
+### Community Features
+
+- Member directory with verification badges
+- Activity feed and community updates
+- Discussion forums and knowledge sharing
+- Event calendar for industry meetings
 
 ## 👥 User Roles & Permissions
 
-### **Factory Owner** 🏭
+### Factory Owner
+
 - Manage organization profile
-- Post job opportunities
+- Post job openings
 - Access fraud reporting
 - View industry insights
-- Manage company information
 
-### **Worker** 👷
+### Worker
+
 - Browse job opportunities
-- Apply for positions
-- Access educational resources
-- Report workplace issues
-- Update personal profile
+- Apply to positions
+- Access knowledge hub
+- Participate in community discussions
 
-### **Buyer** 🛒
+### Buyer
+
 - Search verified organizations
-- Access quality reports
-- Connect with suppliers
-- Industry networking
-- View compliance data
+- Access supplier directory
+- View compliance reports
+- Connect with manufacturers
 
-### **Guest** 👤
+### Guest User
+
 - Browse public information
 - Access knowledge hub
-- View published reports
-- Limited functionality
-- Read-only access
-
-### **Admin** 👑
-- Full platform access
-- User management
-- Content moderation
-- System configuration
-- Analytics and reporting
+- View job listings
+- Register for full access
 
 ## 🗄️ Database Schema
 
-### **Core Models**
+### Core Models
 
-```prisma
-User {
-  id, name, email, role, organizationId
-  // Relations: organization, jobs, applications, posts, comments, reports
-}
+- **User** - User accounts and profiles
+- **Organization** - RMG companies and factories
+- **Job** - Job postings and opportunities
+- **Application** - Job applications
+- **Post** - Knowledge hub content
+- **Comment** - Discussion comments
+- **Report** - Fraud alert reports
 
-Organization {
-  id, name, type, description, country, website
-  // Relations: users, jobs
-}
+### Key Relationships
 
-Job {
-  id, title, description, location, salary, employmentType
-  // Relations: organization, author, applications
-}
+- Users can belong to organizations
+- Organizations can post multiple jobs
+- Users can apply to multiple jobs
+- Posts can have multiple comments
+- Users can create multiple reports
 
-Post {
-  id, title, content, excerpt, published
-  // Relations: author, comments
-}
+## 🚀 Deployment Options
 
-Report {
-  id, title, description, category, severity, status
-  // Relations: author
-}
-```
-
-### **Key Relationships**
-- Users belong to Organizations
-- Organizations post Jobs
-- Users apply for Jobs
-- Users create Posts and Comments
-- Users submit Reports
-
-## 🚀 Deployment
-
-### **Vercel Deployment (Recommended)**
-
-1. **Connect to Vercel**
-   ```bash
-   npx vercel
-   ```
-
-2. **Configure Environment Variables**
-   In your Vercel dashboard, set:
-   - `DATABASE_URL` - Your production database URL
-   - `NEXTAUTH_URL` - Your production domain
-   - `NEXTAUTH_SECRET` - A secure random string
-   - `GOOGLE_CLIENT_ID` - Your Google OAuth client ID
-   - `GOOGLE_CLIENT_SECRET` - Your Google OAuth client secret
-
-3. **Deploy**
-   ```bash
-   vercel --prod
-   ```
-
-### **Alternative Deployment Options**
-
-- **Railway** - Easy PostgreSQL + Node.js deployment
-- **Supabase** - PostgreSQL with built-in authentication
-- **PlanetScale** - MySQL-compatible database
-- **DigitalOcean** - VPS deployment
-
-## 🔧 Development Commands
+### Vercel (Recommended)
 
 ```bash
-# Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript checks
+# Install Vercel CLI
+npm i -g vercel
 
-# Database
-npx prisma studio    # Open Prisma Studio
-npx prisma generate  # Generate Prisma client
-npx prisma db push   # Push schema changes
-npx prisma db seed   # Seed database
-npx prisma migrate   # Run migrations
-
-# Deployment
-vercel               # Deploy to Vercel
-vercel --prod        # Deploy to production
+# Deploy to production
+vercel --prod
 ```
 
-## 🛠️ API Endpoints
+### Docker
 
-### **Organizations**
-```
-GET    /api/organizations          # List organizations
-POST   /api/organizations          # Create organization
-GET    /api/organizations/[id]     # Get organization details
-PUT    /api/organizations/[id]     # Update organization
-DELETE /api/organizations/[id]     # Delete organization
-```
+```bash
+# Build the application
+docker build -t rmgconnect .
 
-### **Jobs**
-```
-GET    /api/jobs                   # List job postings
-POST   /api/jobs                   # Create job posting
-GET    /api/jobs/[id]              # Get job details
-PUT    /api/jobs/[id]              # Update job
-DELETE /api/jobs/[id]              # Delete job
-POST   /api/jobs/[id]/apply        # Apply for job
-GET    /api/jobs/[id]/apply        # Check application status
+# Run the container
+docker run -p 3000:3000 rmgconnect
 ```
 
-### **Knowledge Hub**
-```
-GET    /api/posts                  # List posts
-POST   /api/posts                  # Create post
-GET    /api/posts/[id]             # Get post details
-PUT    /api/posts/[id]             # Update post
-DELETE /api/posts/[id]             # Delete post
-GET    /api/posts/[id]/comments    # Get post comments
-POST   /api/posts/[id]/comments    # Add comment
+### Manual Deployment
+
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-### **Fraud Reports**
+## 🛠️ Development Commands
+
+```bash
+# Development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Lint code
+npm run lint
+
+# Type check
+npm run type-check
+
+# Database commands
+npx prisma studio          # Open database GUI
+npx prisma db push         # Push schema changes
+npx prisma db seed         # Seed database
+npx prisma generate        # Generate Prisma client
 ```
-GET    /api/reports                # List reports
-POST   /api/reports                # Create report
-GET    /api/reports/[id]           # Get report details
-PUT    /api/reports/[id]           # Update report
-DELETE /api/reports/[id]           # Delete report
+
+## 📡 API Endpoints
+
+### Authentication
+
+```bash
+POST /api/auth/register    # User registration
+POST /api/auth/signin      # User login
+POST /api/auth/signout     # User logout
+```
+
+### Organizations
+
+```bash
+GET    /api/organizations        # List organizations
+POST   /api/organizations        # Create organization
+GET    /api/organizations/[id]   # Get organization details
+PUT    /api/organizations/[id]   # Update organization
+DELETE /api/organizations/[id]   # Delete organization
+```
+
+### Jobs
+
+```bash
+GET    /api/jobs                 # List jobs
+POST   /api/jobs                 # Create job posting
+GET    /api/jobs/[id]            # Get job details
+PUT    /api/jobs/[id]            # Update job posting
+DELETE /api/jobs/[id]            # Delete job posting
+POST   /api/jobs/[id]/apply      # Apply for job
+```
+
+### Posts (Knowledge Hub)
+
+```bash
+GET    /api/posts                # List posts
+POST   /api/posts                # Create post
+GET    /api/posts/[id]           # Get post details
+PUT    /api/posts/[id]           # Update post
+DELETE /api/posts/[id]           # Delete post
+GET    /api/posts/[id]/comments  # Get comments
+POST   /api/posts/[id]/comments  # Add comment
+```
+
+### Reports (Fraud Alert)
+
+```bash
+GET    /api/reports              # List reports
+POST   /api/reports              # Create report
+GET    /api/reports/[id]         # Get report details
+PUT    /api/reports/[id]         # Update report
+DELETE /api/reports/[id]         # Delete report
 ```
 
 ## 🔒 Security Features
 
-- **Authentication** - NextAuth.js with multiple providers
-- **Authorization** - Role-based access control
-- **Data Validation** - Input sanitization and validation
-- **CSRF Protection** - Built-in Next.js security
+### Authentication & Authorization
+
+- **NextAuth.js** - Secure authentication system
+- **Role-based Access Control** - User permission management
+- **Session Management** - Secure session handling
+- **Password Hashing** - bcrypt password encryption
+
+### Data Protection
+
+- **Input Validation** - Server-side data validation
+- **SQL Injection Prevention** - Prisma ORM protection
+- **XSS Protection** - React's built-in security
+- **CSRF Protection** - NextAuth.js CSRF tokens
+
+### Environment Security
+
 - **Environment Variables** - Secure configuration management
-- **Rate Limiting** - API endpoint protection
-- **Input Sanitization** - XSS prevention
+- **API Key Protection** - Secure API key storage
+- **Database Security** - PostgreSQL security best practices
 
 ## 🎨 UI/UX Features
 
-- **Responsive Design** - Mobile-first approach
-- **Accessibility** - WCAG 2.1 compliant
-- **Performance** - Optimized loading and rendering
-- **Modern Design** - Clean, professional interface
-- **Dark Mode** - User preference support
-- **Smooth Animations** - Framer Motion integration
+### Modern Design System
 
-## 🐛 Troubleshooting
+- **Glass Morphism** - Modern glass-like effects
+- **Gradient Backgrounds** - Beautiful color transitions
+- **Smooth Animations** - Framer Motion transitions
+- **Responsive Layout** - Mobile-first design
+- **Dark/Light Mode** - User preference support
 
-### **Common Issues**
+### Accessibility
 
-1. **Database Connection Error**
-   ```bash
-   # Check DATABASE_URL format
-   DATABASE_URL="postgresql://user:password@host:port/database"
-   ```
+- **ARIA Labels** - Screen reader compatibility
+- **Keyboard Navigation** - Full keyboard support
+- **Color Contrast** - WCAG compliant colors
+- **Focus Management** - Clear focus indicators
 
-2. **Authentication Issues**
-   ```bash
-   # Ensure NEXTAUTH_SECRET is set
-   NEXTAUTH_SECRET="your-secret-key"
-   ```
+### Performance
 
-3. **Build Errors**
-   ```bash
-   # Clear cache and reinstall
-   rm -rf node_modules package-lock.json
-   npm install
-   ```
+- **Server-Side Rendering** - Fast initial page loads
+- **Image Optimization** - Next.js automatic optimization
+- **Code Splitting** - Optimized bundle sizes
+- **Caching** - Efficient data caching
 
-4. **Prisma Errors**
-   ```bash
-   # Regenerate Prisma client
-   npx prisma generate
-   npx prisma db push
-   ```
+## 🔧 Troubleshooting
 
-### **Getting Help**
+### Common Issues
 
-- **GitHub Issues** - [Create an issue](https://github.com/fatalmonk/rmgconnect/issues)
-- **Documentation** - Check the `/docs` folder
-- **Community** - Join our discussions
-- **Email Support** - Contact through GitHub profile
-
-## 📊 Performance Optimization
-
-- **Static Generation** - Pre-rendered pages where possible
-- **Image Optimization** - Next.js Image component
-- **Code Splitting** - Automatic bundle optimization
-- **Caching** - Efficient data fetching
-- **CDN** - Vercel Edge Network
-
-## 🔄 Version Control
+#### Database Connection Errors
 
 ```bash
-# Check status
-git status
+# Check database connection
+npx prisma db pull
 
-# Add changes
-git add .
-
-# Commit changes
-git commit -m "Your commit message"
-
-# Push to GitHub
-git push origin main
+# Reset database
+npx prisma db push --force-reset
 ```
 
-## 📈 Analytics & Monitoring
+#### Authentication Issues
 
-- **Vercel Analytics** - Built-in performance monitoring
-- **Error Tracking** - Automatic error reporting
-- **User Analytics** - Privacy-focused tracking
-- **Performance Metrics** - Core Web Vitals
+```bash
+# Check environment variables
+echo $NEXTAUTH_SECRET
+echo $NEXTAUTH_URL
 
----
+# Restart development server
+npm run dev
+```
 
-**🎯 Ready to build the future of the RMG industry!**
+#### Build Errors
 
-*For more information, visit [https://rmgconnect.vercel.app](https://rmgconnect.vercel.app)*
+```bash
+# Clear Next.js cache
+rm -rf .next
+
+# Reinstall dependencies
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Performance Optimization
+
+#### Database Optimization
+
+```bash
+# Analyze query performance
+npx prisma studio
+
+# Add database indexes
+npx prisma db push
+```
+
+#### Bundle Optimization
+
+```bash
+# Analyze bundle size
+npm run build
+npx next-bundle-analyzer
+
+# Optimize images
+npm run dev
+```
+
+## 📚 Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Vercel Deployment Guide](https://vercel.com/docs)
+
+## 🤝 Support
+
+For technical support and questions:
+
+- **GitHub Issues** - [Report bugs and feature requests](https://github.com/fatalmonk/rmgconnect/issues)
+- **Documentation** - Check this setup guide and README.md
+- **Community** - Join our discussion forums
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

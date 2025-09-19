@@ -93,9 +93,7 @@ export default function CommunityPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-red-50">
       {/* Background pattern */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(34, 197, 94, 0.03) 2px, rgba(34, 197, 94, 0.03) 4px)`
-      }}></div>
+      <div className="absolute inset-0 background-pattern"></div>
       
       {/* Header */}
       <Header />

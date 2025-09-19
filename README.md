@@ -1,6 +1,6 @@
 # 🏭 RMG Community Hub
 
-**A comprehensive platform for the Bangladesh Ready-Made Garments industry**
+## A comprehensive platform for the Bangladesh Ready-Made Garments industry
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://rmgconnect.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.3-black?logo=next.js)](https://nextjs.org)
@@ -17,308 +17,362 @@ RMG Community Hub is a modern, full-stack web application designed specifically 
 
 ## ✨ Key Features
 
-### 🏢 **Organization Directory**
+### 🏢 Organization Directory
+
 - Comprehensive database of RMG organizations
 - Advanced search and filtering capabilities
 - Organization profiles with verification status
 - Contact information and business details
 
-### 💼 **Job Board**
+### 💼 Job Board
+
 - Job postings from verified organizations
 - Application tracking system
 - Employment type filtering (Full-time, Part-time, Contract)
 - Location-based job search
 
-### 📚 **Knowledge Hub**
-- Industry best practices and guidelines
-- Educational content and resources
-- Community discussions and Q&A
-- Expert insights and case studies
+### 📚 Knowledge Hub
 
-### 🚨 **Fraud Alert System**
-- Anonymous reporting mechanism
-- Fraud prevention and awareness
-- Safety violation reporting
-- Labor issue documentation
-- Quality concern tracking
+- Industry insights and best practices
+- Community discussions and forums
+- Resource sharing and collaboration
+- Expert knowledge base
 
-### 👥 **User Management**
-- Role-based access control
-- User verification system
-- Organization affiliation
-- Profile management
+### 🛡️ Fraud Alert System
+
+- Report suspicious activities and organizations
+- Community-driven verification system
+- Safety compliance tracking
+- Industry watchdog functionality
+
+### 👥 Community Features
+
+- Member directory with verification badges
+- Activity feed and community updates
+- Discussion forums and knowledge sharing
+- Event calendar for industry meetings
 
 ## 🛠️ Technology Stack
 
-### **Frontend**
+### Frontend
+
 - **Next.js 15** - React framework with App Router
 - **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Framer Motion** - Smooth animations
-- **Lucide React** - Beautiful icons
+- **Tailwind CSS v4** - Modern utility-first CSS framework
+- **shadcn/ui** - High-quality component library
+- **Lucide Icons** - Beautiful, customizable icons
+- **Framer Motion** - Smooth animations and transitions
 
-### **Backend**
-- **Next.js API Routes** - Serverless functions
-- **Prisma ORM** - Database management
-- **PostgreSQL** - Primary database
-- **NextAuth.js** - Authentication system
+### Backend & Database
 
-### **Deployment**
-- **Vercel** - Hosting and deployment
-- **GitHub** - Version control
-- **Environment Variables** - Secure configuration
+- **Next.js API Routes** - Serverless API endpoints
+- **Prisma ORM** - Type-safe database access
+- **PostgreSQL** - Robust relational database
+- **NextAuth.js v5** - Authentication and authorization
 
-## 🏗️ Project Structure
+### Deployment & Infrastructure
 
-```
-rmgconnect/
+- **Vercel** - Serverless deployment platform
+- **GitHub** - Version control and CI/CD
+- **Environment Variables** - Secure configuration management
+
+## 📁 Project Structure
+
+```text
+RMGConnect/
 ├── app/                    # Next.js App Router
 │   ├── api/               # API routes
 │   │   ├── auth/          # Authentication endpoints
-│   │   ├── jobs/          # Job management
 │   │   ├── organizations/ # Organization management
-│   │   ├── posts/         # Knowledge hub posts
-│   │   └── reports/       # Fraud reports
+│   │   ├── jobs/          # Job board API
+│   │   ├── posts/         # Knowledge hub API
+│   │   └── reports/       # Fraud alert API
 │   ├── auth/              # Authentication pages
 │   ├── dashboard/         # User dashboard
 │   ├── directory/         # Organization directory
 │   ├── jobs/              # Job board
 │   ├── knowledge/         # Knowledge hub
-│   └── fraud/             # Fraud alerts
-├── components/            # Reusable components
-│   └── ui/               # UI components
-├── lib/                   # Utility libraries
-├── prisma/               # Database schema
-└── types/                # TypeScript definitions
+│   ├── fraud/             # Fraud alert system
+│   └── community/         # Community features
+├── components/            # Reusable React components
+├── lib/                   # Utility functions and configurations
+├── prisma/                # Database schema and migrations
+├── types/                 # TypeScript type definitions
+└── public/                # Static assets
 ```
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm, yarn, pnpm, or bun
+
+- Node.js 18+ and npm/yarn
 - PostgreSQL database
 - Vercel account (for deployment)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/fatalmonk/rmgconnect.git
-   cd rmgconnect
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/fatalmonk/rmgconnect.git
+cd rmgconnect
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
+# Install dependencies
+npm install
 
-3. **Environment Setup**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Configure the following environment variables:
-   ```env
-   DATABASE_URL="postgresql://username:password@localhost:5432/rmgconnect"
-   NEXTAUTH_SECRET="your-secret-key"
-   NEXTAUTH_URL="http://localhost:3000"
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
-   ```
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your configuration
 
-4. **Database Setup**
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   npx prisma db seed
-   ```
+# Set up the database
+npx prisma generate
+npx prisma db push
 
-5. **Run Development Server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
+# Run the development server
+npm run dev
+```
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
-## 🎯 User Roles
+## 👤 User Roles & Permissions
 
-### **Factory Owner**
+### Factory Owner
+
 - Manage organization profile
-- Post job opportunities
+- Post job openings
 - Access fraud reporting
 - View industry insights
 
-### **Worker**
+### Worker
+
 - Browse job opportunities
-- Apply for positions
-- Access educational resources
-- Report workplace issues
+- Apply to positions
+- Access knowledge hub
+- Participate in community discussions
 
-### **Buyer**
+### Buyer
+
 - Search verified organizations
-- Access quality reports
-- Connect with suppliers
-- Industry networking
+- Access supplier directory
+- View compliance reports
+- Connect with manufacturers
 
-### **Guest**
+### Guest User
+
 - Browse public information
 - Access knowledge hub
-- View published reports
-- Limited functionality
+- View job listings
+- Register for full access
 
-## 🔧 API Endpoints
+## 📡 API Documentation
 
-### **Organizations**
-- `GET /api/organizations` - List organizations
-- `POST /api/organizations` - Create organization
-- `GET /api/organizations/[id]` - Get organization details
-- `PUT /api/organizations/[id]` - Update organization
+### Authentication Endpoints
 
-### **Jobs**
-- `GET /api/jobs` - List job postings
-- `POST /api/jobs` - Create job posting
-- `GET /api/jobs/[id]` - Get job details
-- `POST /api/jobs/[id]/apply` - Apply for job
+```bash
+POST /api/auth/register    # User registration
+POST /api/auth/signin      # User login
+POST /api/auth/signout     # User logout
+```
 
-### **Knowledge Hub**
-- `GET /api/posts` - List posts
-- `POST /api/posts` - Create post
-- `GET /api/posts/[id]` - Get post details
-- `POST /api/posts/[id]/comments` - Add comment
+### Organization Endpoints
 
-### **Fraud Reports**
-- `GET /api/reports` - List reports
-- `POST /api/reports` - Create report
-- `GET /api/reports/[id]` - Get report details
+```bash
+GET    /api/organizations        # List organizations
+POST   /api/organizations        # Create organization
+GET    /api/organizations/[id]   # Get organization details
+PUT    /api/organizations/[id]   # Update organization
+DELETE /api/organizations/[id]   # Delete organization
+```
 
-## 🚀 Deployment
+### Job Board Endpoints
 
-### **Vercel Deployment**
+```bash
+GET    /api/jobs                 # List jobs
+POST   /api/jobs                 # Create job posting
+GET    /api/jobs/[id]            # Get job details
+PUT    /api/jobs/[id]            # Update job posting
+DELETE /api/jobs/[id]            # Delete job posting
+POST   /api/jobs/[id]/apply      # Apply for job
+```
 
-1. **Connect to Vercel**
-   ```bash
-   npx vercel
-   ```
+### Knowledge Hub Endpoints
 
-2. **Configure Environment Variables**
-   Set up the following in your Vercel dashboard:
-   - `DATABASE_URL`
-   - `NEXTAUTH_SECRET`
-   - `NEXTAUTH_URL`
-   - `GOOGLE_CLIENT_ID`
-   - `GOOGLE_CLIENT_SECRET`
+```bash
+GET    /api/posts                # List posts
+POST   /api/posts                # Create post
+GET    /api/posts/[id]           # Get post details
+PUT    /api/posts/[id]           # Update post
+DELETE /api/posts/[id]           # Delete post
+GET    /api/posts/[id]/comments  # Get comments
+POST   /api/posts/[id]/comments  # Add comment
+```
 
-3. **Deploy**
+### Fraud Alert Endpoints
+
+```bash
+GET    /api/reports              # List reports
+POST   /api/reports              # Create report
+GET    /api/reports/[id]         # Get report details
+PUT    /api/reports/[id]         # Update report
+DELETE /api/reports/[id]         # Delete report
+```
+
+## 🚀 Deployment Guide
+
+### Vercel Deployment
+
+1. **Connect Repository**
+
    ```bash
    vercel --prod
    ```
 
-## 📊 Database Schema
+2. **Set Environment Variables**
 
-### **Core Models**
+   - `DATABASE_URL` - PostgreSQL connection string
+   - `NEXTAUTH_SECRET` - Authentication secret
+   - `NEXTAUTH_URL` - Production URL
+   - `GOOGLE_CLIENT_ID` - Google OAuth client ID
+   - `GOOGLE_CLIENT_SECRET` - Google OAuth client secret
+
+3. **Database Setup**
+
+   ```bash
+   npx prisma db push
+   ```
+
+### Environment Variables
+
+```bash
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/rmgconnect"
+
+# Authentication
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="https://your-domain.vercel.app"
+
+# Google OAuth (Optional)
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
+
+## 🗄️ Database Schema
+
+### Core Models
+
 - **User** - User accounts and profiles
-- **Organization** - RMG organizations and factories
+- **Organization** - RMG companies and factories
 - **Job** - Job postings and opportunities
 - **Application** - Job applications
 - **Post** - Knowledge hub content
-- **Comment** - Post comments and discussions
-- **Report** - Fraud and safety reports
+- **Comment** - Discussion comments
+- **Report** - Fraud alert reports
 
-### **Key Relationships**
-- Users belong to Organizations
-- Organizations post Jobs
-- Users apply for Jobs
-- Users create Posts and Comments
-- Users submit Reports
+### Key Relationships
+
+- Users can belong to organizations
+- Organizations can post multiple jobs
+- Users can apply to multiple jobs
+- Posts can have multiple comments
+- Users can create multiple reports
 
 ## 🔒 Security Features
 
-- **Authentication** - NextAuth.js with multiple providers
-- **Authorization** - Role-based access control
-- **Data Validation** - Input sanitization and validation
-- **CSRF Protection** - Built-in Next.js security
+- **NextAuth.js** - Secure authentication system
+- **Role-based Access Control** - User permission management
+- **Input Validation** - Server-side data validation
+- **SQL Injection Prevention** - Prisma ORM protection
+- **XSS Protection** - React's built-in security
+- **CSRF Protection** - NextAuth.js CSRF tokens
 - **Environment Variables** - Secure configuration management
 
 ## 🎨 UI/UX Features
 
-- **Responsive Design** - Mobile-first approach
+### Modern Design System
+
+- **Glass Morphism** - Modern glass-like effects
+- **Gradient Backgrounds** - Beautiful color transitions
+- **Smooth Animations** - Framer Motion transitions
+- **Responsive Layout** - Mobile-first design
 - **Dark/Light Mode** - User preference support
-- **Accessibility** - WCAG 2.1 compliant
-- **Performance** - Optimized loading and rendering
-- **Modern Design** - Clean, professional interface
+
+### Accessibility
+
+- **ARIA Labels** - Screen reader compatibility
+- **Keyboard Navigation** - Full keyboard support
+- **Color Contrast** - WCAG compliant colors
+- **Focus Management** - Clear focus indicators
+
+### Performance
+
+- **Server-Side Rendering** - Fast initial page loads
+- **Image Optimization** - Next.js automatic optimization
+- **Code Splitting** - Optimized bundle sizes
+- **Caching** - Efficient data caching
 
 ## 🤝 Contributing
 
-We welcome contributions to improve the RMG Community Hub! Please follow these steps:
+We welcome contributions to the RMG Community Hub! Please follow these guidelines:
 
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m 'Add amazing feature'
-   ```
-4. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-5. **Open a Pull Request**
+### Development Setup
 
-## 📝 License
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+### Code Standards
+
+- Follow TypeScript best practices
+- Use Tailwind CSS for styling
+- Write descriptive commit messages
+- Update documentation as needed
+
+### Reporting Issues
+
+- Use GitHub Issues for bug reports
+- Provide detailed reproduction steps
+- Include browser and OS information
+
+## 📈 Roadmap
+
+### Phase 1 (Current)
+
+- ✅ Core platform functionality
+- ✅ User authentication
+- ✅ Organization directory
+- ✅ Job board
+- ✅ Knowledge hub
+- ✅ Fraud alert system
+
+### Phase 2 (Planned)
+
+- 🔄 Real-time notifications
+- 🔄 Advanced analytics dashboard
+- 🔄 Mobile application
+- 🔄 API rate limiting
+- 🔄 Advanced search filters
+
+### Phase 3 (Future)
+
+- 🔄 Machine learning recommendations
+- 🔄 Blockchain verification
+- 🔄 Multi-language support
+- 🔄 Advanced reporting tools
+- 🔄 Integration with external systems
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **Next.js Team** - For the amazing framework
-- **Vercel** - For hosting and deployment
-- **Prisma** - For the excellent ORM
+- **BGMEA** - Bangladesh Garment Manufacturers and Exporters Association
+- **Next.js Team** - For the amazing React framework
+- **Vercel** - For seamless deployment platform
 - **Tailwind CSS** - For the utility-first CSS framework
-- **Bangladesh RMG Industry** - For the inspiration and use case
-
-## 📞 Support
-
-For support and questions:
-- **GitHub Issues** - [Create an issue](https://github.com/fatalmonk/rmgconnect/issues)
-- **Email** - Contact through GitHub profile
-- **Documentation** - Check the `/docs` folder
-
-## 🌟 Roadmap
-
-### **Phase 1** ✅ (Completed)
-- [x] Basic platform structure
-- [x] User authentication
-- [x] Organization directory
-- [x] Job board
-- [x] Knowledge hub
-- [x] Fraud reporting
-
-### **Phase 2** 🔄 (In Progress)
-- [ ] Advanced search and filtering
-- [ ] Real-time notifications
-- [ ] Mobile app development
-- [ ] API documentation
-
-### **Phase 3** 📋 (Planned)
-- [ ] Machine learning recommendations
-- [ ] Advanced analytics dashboard
-- [ ] Integration with external systems
-- [ ] Multi-language support
+- **Community Contributors** - For their valuable feedback and contributions
 
 ---
 
-**Made with ❤️ for the Bangladesh Ready-Made Garments Industry**
-
-*Empowering transparency, safety, and growth in the RMG sector*
+## Built with ❤️ for the Bangladesh Ready-Made Garments industry

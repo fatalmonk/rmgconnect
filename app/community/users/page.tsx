@@ -192,9 +192,7 @@ export default function UsersPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Background pattern */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(59, 130, 246, 0.03) 2px, rgba(59, 130, 246, 0.03) 4px)`
-      }}></div>
+      <div className="absolute inset-0 header-background"></div>
       
       {/* Header */}
       <Header />
@@ -259,6 +257,7 @@ export default function UsersPage() {
                 <select
                   value={roleFilter}
                   onChange={(e) => setRoleFilter(e.target.value)}
+                  aria-label="Filter users by role"
                   className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <option value="">All Roles</option>
@@ -278,6 +277,7 @@ export default function UsersPage() {
                 <select
                   value={verifiedFilter}
                   onChange={(e) => setVerifiedFilter(e.target.value)}
+                  aria-label="Filter users by verification status"
                   className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <option value="">All Members</option>
