@@ -9,6 +9,8 @@ import Testimonials from "@/components/testimonials"
 import FAQ from "@/components/faq"
 import ActivityFeed from "@/components/activity-feed"
 import MemberSpotlight from "@/components/member-spotlight"
+import DiscussionForums from "@/components/discussion-forums"
+import EventCalendar from "@/components/event-calendar"
 
 export default function HomePage() {
   return (
@@ -183,6 +185,16 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ActivityFeed />
             <MemberSpotlight />
+          </div>
+        </div>
+      </section>
+
+      {/* Discussion Forums & Events Section */}
+      <section className="py-20 px-6 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <DiscussionForums />
+            <EventCalendar />
           </div>
         </div>
       </section>
