@@ -34,32 +34,30 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  email         String        @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole      @default(FACTORY)
-  companyName   String?
-  companyType   CompanyType?
-  isVerified    Boolean       @default(false)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  accounts      Account[]
-  appeals       Appeal[]
-  fraudReports  FraudReport[]
-  reviews       Review[]
-  sessions      Session[]
-  
-  // Community Hub Relations
+  id             String        @id @default(cuid())
+  name           String?
+  email          String        @unique
+  emailVerified  DateTime?
+  image          String?
+  password       String?
+  role           UserRole      @default(FACTORY)
+  companyName    String?
+  companyType    CompanyType?
+  isVerified     Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
   organizationId String?
-  organization   Organization? @relation(fields: [organizationId], references: [id])
-  jobs           Job[]
+  accounts       Account[]
+  appeals        Appeal[]
   applications   Application[]
-  posts          Post[]
   comments       Comment[]
+  fraudReports   FraudReport[]
+  jobs           Job[]
+  posts          Post[]
   reports        Report[]
+  reviews        Review[]
+  sessions       Session[]
+  organization   Organization? @relation(fields: [organizationId], references: [id])
 }
 
 model VerificationToken {
@@ -132,14 +130,114 @@ model Appeal {
   fraudReport   FraudReport  @relation(fields: [fraudReportId], references: [id])
 }
 
+model Organization {
+  id                 String           @id @default(cuid())
+  name               String
+  type               OrganizationType
+  description        String?
+  website            String?
+  email              String?
+  phone              String?
+  address            String?
+  country            String           @default("Bangladesh")
+  isVerified         Boolean          @default(false)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  bgmeaDetailsUrl    String?
+  bgmeaMember        Boolean          @default(false)
+  bgmeaRegNo         String?          @unique
+  bgmeaVerified      Boolean          @default(false)
+  complianceScore    Int?
+  complianceStatus   String?
+  contactPerson      String?
+  employeeCount      Int?
+  exportCountries    String?
+  greenFactory       Boolean          @default(false)
+  lastAudit          DateTime?
+  membershipType     String?
+  productionCapacity Int?
+  registrationDate   DateTime?
+  jobs               Job[]
+  users              User[]
+}
+
+model Job {
+  id             String         @id @default(cuid())
+  title          String
+  description    String
+  requirements   String?
+  location       String?
+  salary         String?
+  employmentType EmploymentType @default(FULL_TIME)
+  status         JobStatus      @default(ACTIVE)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  organizationId String
+  authorId       String
+  applications   Application[]
+  author         User           @relation(fields: [authorId], references: [id])
+  organization   Organization   @relation(fields: [organizationId], references: [id])
+}
+
+model Application {
+  id          String            @id @default(cuid())
+  coverLetter String?
+  status      ApplicationStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  jobId       String
+  userId      String
+  job         Job               @relation(fields: [jobId], references: [id])
+  user        User              @relation(fields: [userId], references: [id])
+
+  @@unique([jobId, userId])
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  excerpt   String?
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  authorId  String
+  comments  Comment[]
+  author    User      @relation(fields: [authorId], references: [id])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  authorId  String
+  postId    String
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model Report {
+  id        String         @id @default(cuid())
+  subject   String
+  details   String
+  category  ReportCategory
+  status    ReportStatus   @default(PENDING)
+  isPublic  Boolean        @default(false)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  authorId  String
+  author    User           @relation(fields: [authorId], references: [id])
+}
+
 enum UserRole {
   ADMIN
   FACTORY
-  FACTORY_OWNER
   SUPPLIER
-  WORKER
   BUYER
   REVIEWER
+  FACTORY_OWNER
+  WORKER
   GUEST
 }
 
@@ -187,120 +285,6 @@ enum AppealStatus {
   PENDING
   APPROVED
   REJECTED
-}
-
-// Community Hub Models
-
-model Organization {
-  id          String   @id @default(cuid())
-  name        String
-  type        OrganizationType
-  description String?  @db.Text
-  website     String?
-  email       String?
-  phone       String?
-  address     String?  @db.Text
-  country     String   @default("Bangladesh")
-  isVerified  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  // BGMEA Integration Fields
-  bgmeaRegNo      String?  @unique  // BGMEA registration number
-  bgmeaMember     Boolean  @default(false)
-  bgmeaVerified   Boolean  @default(false)
-  contactPerson   String?
-  bgmeaDetailsUrl String?  // Link to BGMEA member page
-  
-  // Additional BGMEA fields
-  registrationDate DateTime?
-  membershipType   String?  // General, Associate
-  complianceStatus String?
-  
-  // Manufacturing Details
-  productionCapacity Int?    // Number of workers
-  employeeCount      Int?    // Total employees
-  exportCountries    String? // Countries they export to
-  lastAudit          DateTime?
-  complianceScore    Int?    // 0-100 compliance score
-  greenFactory       Boolean @default(false)
-
-  users       User[]
-  jobs        Job[]
-}
-
-model Job {
-  id           String   @id @default(cuid())
-  title        String
-  description  String   @db.Text
-  requirements String?  @db.Text
-  location     String?
-  salary       String?
-  employmentType EmploymentType @default(FULL_TIME)
-  status       JobStatus @default(ACTIVE)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  authorId       String
-  author         User         @relation(fields: [authorId], references: [id])
-  applications   Application[]
-}
-
-model Application {
-  id        String   @id @default(cuid())
-  coverLetter String? @db.Text
-  status    ApplicationStatus @default(PENDING)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  jobId  String
-  job    Job  @relation(fields: [jobId], references: [id])
-  userId String
-  user   User @relation(fields: [userId], references: [id])
-
-  @@unique([jobId, userId])
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String   @db.Text
-  excerpt   String?  @db.Text
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  authorId String
-  author   User      @relation(fields: [authorId], references: [id])
-  comments Comment[]
-}
-
-model Comment {
-  id        String   @id @default(cuid())
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id])
-  postId   String
-  post     Post   @relation(fields: [postId], references: [id])
-}
-
-model Report {
-  id          String      @id @default(cuid())
-  subject     String
-  details     String      @db.Text
-  category    ReportCategory
-  status      ReportStatus @default(PENDING)
-  isPublic    Boolean     @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id])
 }
 
 enum OrganizationType {
