@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
-import { Search, Building2, Users, Briefcase, MapPin, Globe, Filter } from "lucide-react"
+import { Search, Building2, Users, Briefcase, MapPin, Globe, Filter, ShieldCheck, Award, Factory } from "lucide-react"
 import Link from "next/link"
 
 interface Organization {
@@ -17,6 +17,21 @@ interface Organization {
   country: string
   isVerified: boolean
   createdAt: string
+  // BGMEA Fields
+  bgmeaRegNo: string | null
+  bgmeaMember: boolean
+  bgmeaVerified: boolean
+  contactPerson: string | null
+  bgmeaDetailsUrl: string | null
+  registrationDate: string | null
+  membershipType: string | null
+  complianceStatus: string | null
+  productionCapacity: number | null
+  employeeCount: number | null
+  exportCountries: string | null
+  lastAudit: string | null
+  complianceScore: number | null
+  greenFactory: boolean
   users: Array<{
     id: string
     name: string | null
@@ -41,6 +56,8 @@ export default function DirectoryPage() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [typeFilter, setTypeFilter] = useState("")
+  const [bgmeaFilter, setBgmeaFilter] = useState("")
+  const [verifiedFilter, setVerifiedFilter] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
 
   const organizationTypes = [
@@ -64,6 +81,8 @@ export default function DirectoryPage() {
       
       if (search) params.append("search", search)
       if (typeFilter) params.append("type", typeFilter)
+      if (bgmeaFilter) params.append("bgmea_only", bgmeaFilter)
+      if (verifiedFilter) params.append("verified_only", verifiedFilter)
 
       const response = await fetch(`/api/organizations?${params}`)
       const data = await response.json()
@@ -75,7 +94,7 @@ export default function DirectoryPage() {
     } finally {
       setLoading(false)
     }
-  }, [currentPage, search, typeFilter])
+  }, [currentPage, search, typeFilter, bgmeaFilter, verifiedFilter])
 
   useEffect(() => {
     fetchOrganizations()
@@ -98,10 +117,10 @@ export default function DirectoryPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Organization Directory
+              Manufacturing Directory
             </h1>
             <p className="text-lg text-gray-600 mb-8">
-              Discover factories, suppliers, buyers, and other organizations in Bangladesh&apos;s RMG industry
+              Discover verified manufacturers, BGMEA members, and factories in Bangladesh&apos;s RMG industry
             </p>
 
             {/* Search and Filters */}
@@ -119,7 +138,7 @@ export default function DirectoryPage() {
                 </div>
               </form>
               
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value)}
@@ -132,6 +151,26 @@ export default function DirectoryPage() {
                       {type.replace("_", " ")}
                     </option>
                   ))}
+                </select>
+
+                <select
+                  value={bgmeaFilter}
+                  onChange={(e) => setBgmeaFilter(e.target.value)}
+                  className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  aria-label="Filter by BGMEA membership"
+                >
+                  <option value="">All Members</option>
+                  <option value="true">BGMEA Members Only</option>
+                </select>
+
+                <select
+                  value={verifiedFilter}
+                  onChange={(e) => setVerifiedFilter(e.target.value)}
+                  className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  aria-label="Filter by verification status"
+                >
+                  <option value="">All Status</option>
+                  <option value="true">Verified Only</option>
                 </select>
                 
                 <button className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
@@ -191,17 +230,38 @@ export default function DirectoryPage() {
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {org.name}
                       </h3>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {org.type.replace("_", " ")}
-                      </span>
-                    </div>
-                    {org.isVerified && (
-                      <div className="ml-2 p-1 bg-blue-100 rounded-full">
-                        <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          {org.type.replace("_", " ")}
+                        </span>
+                        {org.bgmeaVerified && (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <ShieldCheck className="w-3 h-3 mr-1" />
+                            BGMEA Verified
+                          </span>
+                        )}
+                        {org.greenFactory && (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                            <Award className="w-3 h-3 mr-1" />
+                            Green Factory
+                          </span>
+                        )}
                       </div>
-                    )}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      {org.isVerified && (
+                        <div className="p-1 bg-blue-100 rounded-full">
+                          <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                      {org.bgmeaRegNo && (
+                        <div className="text-xs text-gray-500 text-right">
+                          {org.bgmeaRegNo}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {org.description && (
@@ -211,18 +271,28 @@ export default function DirectoryPage() {
                   )}
 
                   <div className="space-y-2 mb-4">
+                    {org.contactPerson && (
+                      <div className="flex items-center text-sm text-gray-600">
+                        <Users className="w-4 h-4 mr-2" />
+                        {org.contactPerson}
+                      </div>
+                    )}
                     {org.address && (
                       <div className="flex items-center text-sm text-gray-500">
                         <MapPin className="w-4 h-4 mr-2" />
-                        {org.address}
+                        <span className="line-clamp-1">{org.address}</span>
                       </div>
                     )}
-                    {org.website && (
+                    {org.exportCountries && (
                       <div className="flex items-center text-sm text-gray-500">
                         <Globe className="w-4 h-4 mr-2" />
-                        <a href={org.website} target="_blank" rel="noopener noreferrer" className="hover:text-green-600">
-                          {org.website}
-                        </a>
+                        <span className="line-clamp-1">Exports to: {org.exportCountries}</span>
+                      </div>
+                    )}
+                    {org.employeeCount && (
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Factory className="w-4 h-4 mr-2" />
+                        {org.employeeCount.toLocaleString()} employees
                       </div>
                     )}
                   </div>

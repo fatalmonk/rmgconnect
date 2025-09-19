@@ -204,6 +204,26 @@ model Organization {
   isVerified  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  
+  // BGMEA Integration Fields
+  bgmeaRegNo      String?  @unique  // BGMEA registration number
+  bgmeaMember     Boolean  @default(false)
+  bgmeaVerified   Boolean  @default(false)
+  contactPerson   String?
+  bgmeaDetailsUrl String?  // Link to BGMEA member page
+  
+  // Additional BGMEA fields
+  registrationDate DateTime?
+  membershipType   String?  // General, Associate
+  complianceStatus String?
+  
+  // Manufacturing Details
+  productionCapacity Int?    // Number of workers
+  employeeCount      Int?    // Total employees
+  exportCountries    String? // Countries they export to
+  lastAudit          DateTime?
+  complianceScore    Int?    // 0-100 compliance score
+  greenFactory       Boolean @default(false)
 
   users       User[]
   jobs        Job[]

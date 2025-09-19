@@ -7,6 +7,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const type = searchParams.get("type")
     const search = searchParams.get("search")
+    const bgmeaOnly = searchParams.get("bgmea_only") === "true"
+    const verifiedOnly = searchParams.get("verified_only") === "true"
     const page = parseInt(searchParams.get("page") || "1")
     const limit = parseInt(searchParams.get("limit") || "10")
     const skip = (page - 1) * limit
@@ -17,9 +19,12 @@ export async function GET(request: NextRequest) {
         OR: [
           { name: { contains: search, mode: "insensitive" as const } },
           { description: { contains: search, mode: "insensitive" as const } },
-          { country: { contains: search, mode: "insensitive" as const } }
+          { contactPerson: { contains: search, mode: "insensitive" as const } },
+          { bgmeaRegNo: { contains: search } }
         ]
-      })
+      }),
+      ...(bgmeaOnly && { bgmeaMember: true }),
+      ...(verifiedOnly && { isVerified: true })
     }
 
     const [organizations, total] = await Promise.all([
@@ -42,7 +47,11 @@ export async function GET(request: NextRequest) {
             }
           }
         },
-        orderBy: { createdAt: "desc" }
+        orderBy: [
+          { bgmeaVerified: 'desc' },
+          { isVerified: 'desc' },
+          { name: 'asc' }
+        ]
       }),
       prisma.organization.count({ where })
     ])
